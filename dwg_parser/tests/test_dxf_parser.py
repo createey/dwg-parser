@@ -60,5 +60,26 @@ class TestTextExtractor:
         assert isinstance(texts, list)
         assert len(texts) == 0
 
+from dwg_parser.dxf_parser import JSONExporter
+import json
+
+class TestJSONExporter:
+    def test_export_to_json(self):
+        """测试导出到JSON文件"""
+        data = {"test": "value"}
+        with tempfile.NamedTemporaryFile(suffix='.json', delete=False) as f:
+            temp_path = f.name
+        
+        try:
+            exporter = JSONExporter(temp_path)
+            assert exporter.export(data) == True
+            
+            # 验证文件内容
+            with open(temp_path, 'r', encoding='utf-8') as f:
+                loaded_data = json.load(f)
+                assert loaded_data == data
+        finally:
+            os.unlink(temp_path)
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])

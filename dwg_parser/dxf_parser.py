@@ -67,3 +67,20 @@ class TextExtractor:
                     }
                     texts.append(text_info)
         return texts
+
+
+import json
+
+class JSONExporter:
+    def __init__(self, output_path):
+        self.output_path = output_path
+    
+    def export(self, data):
+        """导出为JSON格式"""
+        try:
+            with open(self.output_path, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            return True
+        except Exception as e:
+            print(f"导出JSON失败: {e}")
+            return False
