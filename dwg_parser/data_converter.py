@@ -2,7 +2,6 @@
 from typing import Dict, Any, List
 from .entities import Point, Line, Circle, Arc, Polyline, Spline
 from .entities import Text, MText, Dimension
-from .entities import Block, Attribute, Insert
 
 class DataConverter:
     """Convert raw DWG data to Python objects"""

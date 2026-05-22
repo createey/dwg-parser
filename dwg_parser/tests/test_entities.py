@@ -20,3 +20,23 @@ def test_circle_creation():
     circle = Circle(center, 5.0)
     assert circle.center == center
     assert circle.radius == 5.0
+
+def test_arc_creation():
+    center = Point(0.0, 0.0, 0.0)
+    arc = Arc(center, 5.0, 0.0, 90.0)
+    assert arc.center == center
+    assert arc.radius == 5.0
+    assert arc.start_angle == 0.0
+    assert arc.end_angle == 90.0
+
+def test_polyline_creation():
+    points = [Point(0.0, 0.0, 0.0), Point(1.0, 0.0, 0.0), Point(1.0, 1.0, 0.0)]
+    polyline = Polyline(points)
+    assert polyline.points == points
+    assert polyline.closed == False
+
+def test_spline_creation():
+    points = [Point(0.0, 0.0, 0.0), Point(1.0, 1.0, 0.0), Point(2.0, 0.0, 0.0)]
+    spline = Spline(points)
+    assert spline.control_points == points
+    assert spline.degree == 3

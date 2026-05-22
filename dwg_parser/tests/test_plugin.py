@@ -9,5 +9,6 @@ def test_cli_initialization():
 
 def test_cli_parse_command():
     cli = DWGPluginCLI()
-    # Test that parse command exists
+    # Test that parse command exists and is callable
     assert hasattr(cli, 'parse_dwg')
+    assert callable(cli.parse_dwg)

@@ -1,5 +1,7 @@
 # dwg_parser/dxf_parser.py
 import ezdxf
+import sys
+import json
 
 class DXFReader:
     def __init__(self, file_path):
@@ -12,7 +14,7 @@ class DXFReader:
             self.doc = ezdxf.readfile(self.file_path)
             return True
         except Exception as e:
-            print(f"读取DXF文件失败: {e}")
+            print(f"读取DXF文件失败: {e}", file=sys.stderr)
             return False
     
     def get_modelspace(self):
@@ -69,8 +71,6 @@ class TextExtractor:
         return texts
 
 
-import json
-
 class JSONExporter:
     def __init__(self, output_path):
         self.output_path = output_path
@@ -82,7 +82,7 @@ class JSONExporter:
                 json.dump(data, f, ensure_ascii=False, indent=2)
             return True
         except Exception as e:
-            print(f"导出JSON失败: {e}")
+            print(f"导出JSON失败: {e}", file=sys.stderr)
             return False
 
 
