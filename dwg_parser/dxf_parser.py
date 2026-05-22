@@ -55,7 +55,7 @@ class TextExtractor:
                         'type': 'TEXT',
                         'text': entity.dxf.text,
                         'layer': entity.dxf.layer,
-                        'insert': entity.dxf.insert.xyz
+                        'insert': list(entity.dxf.insert.xyz)
                     }
                     texts.append(text_info)
                 elif entity.dxftype() == 'MTEXT':
@@ -63,7 +63,7 @@ class TextExtractor:
                         'type': 'MTEXT',
                         'text': entity.text,
                         'layer': entity.dxf.layer,
-                        'insert': entity.dxf.insert.xyz
+                        'insert': list(entity.dxf.insert.xyz)
                     }
                     texts.append(text_info)
         return texts
@@ -84,3 +84,46 @@ class JSONExporter:
         except Exception as e:
             print(f"导出JSON失败: {e}")
             return False
+
+
+def main():
+    import sys
+    
+    if len(sys.argv) < 2:
+        print("用法: python dxf_parser.py <input.dxf> [output.json]")
+        sys.exit(1)
+    
+    input_file = sys.argv[1]
+    output_file = sys.argv[2] if len(sys.argv) > 2 else "output.json"
+    
+    # 读取DXF文件
+    reader = DXFReader(input_file)
+    if not reader.read():
+        sys.exit(1)
+    
+    # 提取图层信息
+    layer_extractor = LayerExtractor(reader.doc)
+    layers = layer_extractor.extract_layers()
+    
+    # 提取文本标注
+    text_extractor = TextExtractor(reader.doc)
+    texts = text_extractor.extract_text()
+    
+    # 组合数据
+    data = {
+        'layers': layers,
+        'texts': texts
+    }
+    
+    # 导出JSON
+    exporter = JSONExporter(output_file)
+    if exporter.export(data):
+        print(f"数据提取成功！输出文件: {output_file}")
+        print(f"图层数量: {len(layers)}")
+        print(f"文本数量: {len(texts)}")
+    else:
+        print("数据提取失败！")
+        sys.exit(1)
+
+if __name__ == '__main__':
+    main()
