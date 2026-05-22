@@ -1,0 +1,1 @@
+# dwg_parser/tests/__init__.py
