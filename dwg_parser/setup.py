@@ -6,11 +6,12 @@ setup(
     version="0.1.0",
     packages=find_packages(),
     install_requires=[
-        "ctypes>=1.1.0",
         "cffi>=1.15.0",
         "ezdxf>=0.18.0",
     ],
-    author="OpenCode",
-    description="DWG Parser Plugin for OpenCode",
-    python_requires=">=3.8",
+    entry_points={
+        'console_scripts': [
+            'dxf-parser=dwg_parser.dxf_parser:main',
+        ],
+    },
 )
