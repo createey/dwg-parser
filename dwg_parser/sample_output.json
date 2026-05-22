@@ -1,0 +1,51 @@
+{
+  "layers": [
+    {
+      "name": "0",
+      "color": 7,
+      "linetype": "Continuous"
+    },
+    {
+      "name": "Defpoints",
+      "color": 7,
+      "linetype": "Continuous"
+    },
+    {
+      "name": "WALLS",
+      "color": 1,
+      "linetype": "Continuous"
+    },
+    {
+      "name": "TEXT",
+      "color": 7,
+      "linetype": "Continuous"
+    },
+    {
+      "name": "DIMENSIONS",
+      "color": 3,
+      "linetype": "Continuous"
+    }
+  ],
+  "texts": [
+    {
+      "type": "TEXT",
+      "text": "房间 A",
+      "layer": "TEXT",
+      "insert": [
+        5.0,
+        5.0,
+        0.0
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "10.0m x 10.0m",
+      "layer": "DIMENSIONS",
+      "insert": [
+        5.0,
+        2.0,
+        0.0
+      ]
+    }
+  ]
+}
