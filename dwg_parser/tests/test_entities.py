@@ -32,11 +32,13 @@ def test_arc_creation():
 def test_polyline_creation():
     points = [Point(0.0, 0.0, 0.0), Point(1.0, 0.0, 0.0), Point(1.0, 1.0, 0.0)]
     polyline = Polyline(points)
-    assert polyline.points == points
+    assert polyline.vertices == points
     assert polyline.closed == False
 
 def test_spline_creation():
     points = [Point(0.0, 0.0, 0.0), Point(1.0, 1.0, 0.0), Point(2.0, 0.0, 0.0)]
-    spline = Spline(points)
+    knots = [0.0, 0.0, 0.0, 1.0, 1.0, 1.0]
+    spline = Spline(points, knots)
     assert spline.control_points == points
+    assert spline.knots == knots
     assert spline.degree == 3
