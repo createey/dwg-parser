@@ -27,5 +27,26 @@ class TestDXFReader:
         finally:
             os.unlink(temp_path)
 
+from dwg_parser.dxf_parser import LayerExtractor
+
+class TestLayerExtractor:
+    def test_extract_layers_empty_doc(self):
+        """测试从空文档提取图层"""
+        extractor = LayerExtractor(None)
+        assert extractor.extract_layers() == []
+
+    def test_extract_layers(self):
+        """测试提取图层信息"""
+        import ezdxf
+        doc = ezdxf.new(dxfversion="R2010")
+        doc.layers.add("TestLayer", color=7, linetype="CONTINUOUS")
+        extractor = LayerExtractor(doc)
+        layers = extractor.extract_layers()
+        assert len(layers) >= 1
+        layer = layers[0]
+        assert 'name' in layer
+        assert 'color' in layer
+        assert 'linetype' in layer
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])

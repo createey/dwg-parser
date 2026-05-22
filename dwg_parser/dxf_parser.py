@@ -20,3 +20,21 @@ class DXFReader:
         if self.doc:
             return self.doc.modelspace()
         return None
+
+
+class LayerExtractor:
+    def __init__(self, doc):
+        self.doc = doc
+
+    def extract_layers(self):
+        """提取图层信息"""
+        layers = []
+        if self.doc:
+            for layer in self.doc.layers:
+                layer_info = {
+                    'name': layer.dxf.name,
+                    'color': layer.color,
+                    'linetype': layer.dxf.linetype
+                }
+                layers.append(layer_info)
+        return layers
