@@ -38,3 +38,32 @@ class LayerExtractor:
                 }
                 layers.append(layer_info)
         return layers
+
+
+class TextExtractor:
+    def __init__(self, doc):
+        self.doc = doc
+    
+    def extract_text(self):
+        """提取文本标注"""
+        texts = []
+        if self.doc:
+            msp = self.doc.modelspace()
+            for entity in msp:
+                if entity.dxftype() == 'TEXT':
+                    text_info = {
+                        'type': 'TEXT',
+                        'text': entity.dxf.text,
+                        'layer': entity.dxf.layer,
+                        'insert': entity.dxf.insert.xyz
+                    }
+                    texts.append(text_info)
+                elif entity.dxftype() == 'MTEXT':
+                    text_info = {
+                        'type': 'MTEXT',
+                        'text': entity.text,
+                        'layer': entity.dxf.layer,
+                        'insert': entity.dxf.insert.xyz
+                    }
+                    texts.append(text_info)
+        return texts

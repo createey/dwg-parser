@@ -48,5 +48,17 @@ class TestLayerExtractor:
         assert 'color' in layer
         assert 'linetype' in layer
 
+from dwg_parser.dxf_parser import TextExtractor
+
+class TestTextExtractor:
+    def test_extract_text_from_empty_document(self):
+        """测试从空文档提取文本"""
+        import ezdxf
+        doc = ezdxf.new(dxfversion="R2010")
+        extractor = TextExtractor(doc)
+        texts = extractor.extract_text()
+        assert isinstance(texts, list)
+        assert len(texts) == 0
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
